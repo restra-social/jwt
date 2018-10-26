@@ -3,12 +3,10 @@ library corsac_jwt.rs256;
 
 import 'dart:typed_data';
 
-//import 'package:pointycastle/pointycastle.dart';
-//import 'package:rsa_pkcs/rsa_pkcs.dart' as rsa;
+import 'package:pointycastle/pointycastle.dart';
+import 'package:rsa_pkcs/rsa_pkcs.dart' as rsa;
 import 'package:logging/logging.dart';
 import '../corsac_jwt.dart';
-
-import 'rsa_pkcs.dart' as rsa;
 
 Logger _logger = new Logger('JWTRsaSha256Signer');
 
@@ -80,7 +78,7 @@ class JWTRsaSha256Signer implements JWTSigner {
     try {
       var s = new Signer('SHA-256/RSA');
       var key = new RSAPublicKey(
-          _publicKey.modulus, new BigInteger(_publicKey.publicExponent));
+          _publicKey.modulus, new BigInt.from(_publicKey.publicExponent));
       var param = new ParametersWithRandom(
           new PublicKeyParameter<RSAPublicKey>(key),
           new SecureRandom("AES/CTR/PRNG"));
